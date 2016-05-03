@@ -1,42 +1,36 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Covert_sation_Server.Models;
 
 namespace Covert_sation_Server.Controllers
 {
     [Route("api/[controller]")]
     public class GroupController : Controller
     {
-        // GET: api/values
         [HttpGet]
-        public bool Create(string name, ICollection<User> users)
+        public bool Create([FromBody]string name, [FromBody]ICollection<User> users)
         {
-            throw new System.NotImplementedException;
+            throw new System.NotImplementedException();
         }
-
-        // GET api/values/5
+        
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string AddMember(int id)
         {
-            return "value";
+            throw new System.NotImplementedException();
         }
-
-        // POST api/values
+        
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void RemoveMember([FromBody]string value)
         {
+            throw new System.NotImplementedException();
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
+        // PUT api/group/{id}
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteGroup(int id)
         {
+            throw new System.NotImplementedException();
         }
     }
 }

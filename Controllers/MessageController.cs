@@ -1,29 +1,27 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
 namespace Covert_sation_Server.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class ValuesController : Controller
     {
-        // GET: api/user
-        [HttpPost]
-        public string Login(string userName, string password)
+        // GET: api/values
+        [HttpGet]
+        public IEnumerable<string> Get()
         {
-            throw new NotImplementedException();   
+            return new string[] { "value1", "value2" };
         }
 
-        // GET api/user/5
+        // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/user
+        // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
         {
