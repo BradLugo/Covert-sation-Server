@@ -9,10 +9,29 @@ namespace Covert_sation_Server.Controllers
     public class MessageController : Controller
     {
         
-        public void Send(Message m)
+        List<Message> messages = new List<Message>{};
+        
+        
+        public void Create(int id, string body, ICollection<User> receivers)
         {
-            
+            Message temp = new Message{Id = id, Body = body, Receivers = receivers};
+            // create timer
+            // timer created here
+            // and added to messages
+            messages.Add(temp);
         }
+        
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            // find message by id
+            int messageindex = messages.FindIndex(Message => Message.Id == id);
+            messages.RemoveAt(messageindex);
+        }
+        
+        
+        
         
         
         // GET: api/values
@@ -41,10 +60,6 @@ namespace Covert_sation_Server.Controllers
         {
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
