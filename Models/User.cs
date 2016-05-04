@@ -5,11 +5,12 @@ namespace Covert_sation_Server.Models
     public class User
     {
         public int Id { get; set; }
-        public string name { get; set; }
         public int CompanyId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
+        public bool IsActive { get; set; }
+        public string PublicKey { get; set; }
+        
         public ICollection<User> Contacts { get; set; }
         public ICollection<Message> Messages { get; set; }
     }

@@ -13,34 +13,40 @@ namespace Covert_sation_Server.Controllers
         List<User> users = new List<User>();
         
         // Creates a new User
-        // userName -   User's username
+        // userEmail -  User's Email
         // password -   User's password
         // companyId -  User's companyId
-        // email -      User's email
-        public void Create(string userName, string password, int companyId, string email)
+        public void Create(string userEmail, string password, int companyId)
         {
-            if(users.Single(User => User.name == userName) != null)
+            if(users.Single(User => User.Email == userEmail) != null)
                 return;
             // create an Id
             int newid = 1;
-            User temp = new User{name = userName, Password = password, CompanyId = companyId, Email = email};
+            User temp = new User{Email = userEmail, Password = password, CompanyId = companyId, IsActive = false};
             temp.Id = newid;
             users.Add(temp);
         }
         
-        // Checks username and password 
-        // userName -   User's username
+        // Checks username and password to log in
+        // userEmail -  User's Email
         // password -   User's password
         // GET: api/user
         [HttpPost]
-        public string Login(string userName, string password)
+        public string Login(string userEmail, string password)
         {
-            User Temp = users[users.FindIndex(User => User.name == userName && User.Password == password)];
-            if(Temp != null)
+            User temp = users[users.FindIndex(User => User.Email == userEmail && User.Password == password)];
+            if(temp != null)
             {
+                temp.IsActive = true;
                 return "Logged in successfully";
             }
             return "Invalid login";
+        }
+        
+        public void Logout(int id)
+        {
+            User temp = GetUser(id);
+            temp.IsActive = false;
         }
         
         // Adds another user to requesting user's contacts
@@ -69,11 +75,11 @@ namespace Covert_sation_Server.Controllers
         
         // Returns a User's name from a given id if a User exists with that id
         // id -     Id of user whose name is to be returned
-        public string GetUserName(int id)
+        public string GetUserPublicKey(int id)
         {
             User temp = GetUser(id);
             if(temp != null)
-                return temp.name;
+                return temp.PublicKey;
             return "";
         }
         
