@@ -1,71 +1,74 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using System.Threading.Tasks;
 using Covert_sation_Server.Models;
 
 namespace Covert_sation_Server.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController
+    public class UserController : Controller
     {
         List<User> users = new List<User>();
+        
+        
+        public void Create(string userName, string password, int companyId, string email)
+        {
+            if(users.Single(User => User.name == userName) != null)
+                return;
+            // create an Id
+            int newid = 1;
+            User temp = new User{name = userName, Password = password, CompanyId = companyId, Email = email};
+            temp.Id = newid;
+            users.Add(temp);
+        }
         
         
         // GET: api/user
         [HttpPost]
         public string Login(string userName, string password)
         {
-<<<<<<< Updated upstream
-            throw new NotImplementedException();   
-=======
             User Temp = users.Single(User => User.name == userName && User.Password == password);
             if(Temp != null)
             {
                 return "Logged in successfully";
             }
             return "Invalid login";
->>>>>>> Stashed changes
+        }
+        
+        public string AddContact(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
 
         // GET api/user/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public User GetUser(int id)
         {
-            User Temp = users.Single(User => User.Id == id);
-            if(Temp != null)
+            User temp = users.Single(User => User.Id == id);
+            if(temp != null)
             {
-                return Temp.name;
+                return temp;
             }
-            return "value";
+            return null;
         }
         
-
-        // POST api/user
-        [HttpPost]
-        public void Post([FromBody]string value)
+        
+        public string GetUserName(int id)
         {
-            User Temp = null;
-            users.Add(Temp);
+            User temp = users.Single(User => User.Id == id);
+            return temp.name;
         }
         
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-            
-        }
-
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            User Temp = users.Single(User => User.Id == id);
-            users.Remove(Temp);
+            User temp = users.Single(User => User.Id == id);
+            users.Remove(temp);
         }
     }
 }

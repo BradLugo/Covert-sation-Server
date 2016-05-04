@@ -1,12 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Covert_sation_Server.Models;
 
 namespace Covert_sation_Server.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class MessageController : Controller
     {
+        
+        public void Send(Message m)
+        {
+            
+        }
+        
+        
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
