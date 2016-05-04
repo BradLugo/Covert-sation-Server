@@ -8,6 +8,8 @@ namespace Covert_sation_Server.Controllers
     [Route("api/[controller]")]
     public class MessageController : Controller
     {
+        List<Message> messages = new List<Message>();
+
         public JsonResult Create(int id, string body, ICollection<UserMessage> receivers)
         {
             Message temp = new Message {Id = id, Body = body, Receivers = receivers};
@@ -15,7 +17,7 @@ namespace Covert_sation_Server.Controllers
             // timer created here
             // and added to messages
             messages.Add(temp);
-            return Json();
+            return Json(true);
         }
         
         // DELETE api/values/5

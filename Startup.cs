@@ -40,6 +40,8 @@ namespace Covert_sation_Server
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<CovertContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<CovertRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -14,9 +14,24 @@ namespace Covert_sation_Server.Models
             _context = context;
         }
 
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _context.Users.ToList();
+        }
+
+        public User GetUserById(int id)
+        {
+            return _context.Users.SingleOrDefault(user => user.Id == id);
+        }
+
+        public void RemoveUser(User user)
+        {
+            _context.Users.Remove(user);
         }
 
         public IEnumerable<Group> GetAllGroups()
