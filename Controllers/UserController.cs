@@ -20,10 +20,7 @@ namespace Covert_sation_Server.Controllers
         {
             if(users.Single(User => User.Email == userEmail) != null)
                 return;
-            // create an Id
-            int newid = 1;
             User temp = new User{Email = userEmail, Password = password, CompanyId = companyId, IsActive = false};
-            temp.Id = newid;
             users.Add(temp);
         }
         
@@ -73,6 +70,7 @@ namespace Covert_sation_Server.Controllers
             return null;
         }
         
+        
         // Returns a User's name from a given id if a User exists with that id
         // id -     Id of user whose name is to be returned
         public string GetUserPublicKey(int id)
@@ -82,6 +80,17 @@ namespace Covert_sation_Server.Controllers
                 return temp.PublicKey;
             return "";
         }
+        
+        // Returns a True if the User given by the id is active if a User exists with that id
+        // id -     Id of a user whose name is to be returned
+        public bool GetUserActive(int id)
+        {
+            User temp = GetUser(id);
+            if(temp != null)
+                return temp.IsActive;
+            return false;
+        }
+        
         
         // Delete's a User's account from a given id if a User exists with that id
         // id -     Id of user to be deleted
