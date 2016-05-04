@@ -12,6 +12,6 @@ namespace Covert_sation_Server.Models
         public string PublicKey { get; set; }
         
         public ICollection<User> Contacts { get; set; }
-        public ICollection<Message> Messages { get; set; }
+        public ICollection<UserMessage> Messages { get; set; }
     }
 }

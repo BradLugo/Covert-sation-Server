@@ -8,6 +8,6 @@ namespace Covert_sation_Server.Models
         public string Body { get; set; }
         public int Timer { get; set; }
 
-        public ICollection<User> Receivers { get; set; }
+        public ICollection<UserMessage> Receivers { get; set; }
     }
 }

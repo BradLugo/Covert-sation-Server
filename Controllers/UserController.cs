@@ -10,18 +10,23 @@ namespace Covert_sation_Server.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        List<User> users = new List<User>();
+        private CovertRepository _repository;
+        public UserController(CovertRepository repository)
+        {
+            _repository = repository;
+        }
         
         // Creates a new User
         // userEmail -  User's Email
         // password -   User's password
         // companyId -  User's companyId
+        [HttpPost]
         public void Create(string userEmail, string password, int companyId)
         {
-            if(users.Single(User => User.Email == userEmail) != null)
+            if (_repository.GetAllUsers().SingleOrDefault(User => User.Email == userEmail) != null)
                 return;
-            User temp = new User{Email = userEmail, Password = password, CompanyId = companyId, IsActive = false};
-            users.Add(temp);
+            var temp = new User { Email = userEmail, Password = password, CompanyId = companyId, IsActive = false };
+            _context.Users.Add(temp);
         }
         
         // Checks username and password to log in
@@ -31,19 +36,23 @@ namespace Covert_sation_Server.Controllers
         [HttpPost]
         public string Login(string userEmail, string password)
         {
-            User temp = users[users.FindIndex(User => User.Email == userEmail && User.Password == password)];
+            var temp = _context.Users.FirstOrDefault(user => user.Email == userEmail && user.Password == password);
+
             if(temp != null)
             {
                 temp.IsActive = true;
                 return "Logged in successfully";
             }
+
             return "Invalid login";
         }
         
-        public void Logout(int id)
+        [HttpGet]
+        public JsonResult Logout(int id)
         {
-            User temp = GetUser(id);
-            temp.IsActive = false;
+            //User temp = GetUser(id);
+            //temp.IsActive = false;
+            return Json(new { test = "test" });
         }
         
         // Adds another user to requesting user's contacts
@@ -62,7 +71,7 @@ namespace Covert_sation_Server.Controllers
         [HttpGet("{id}")]
         public User GetUser(int id)
         {
-            User temp = users.Single(User => User.Id == id);
+            User temp = _context.Users.SingleOrDefault(User => User.Id == id);
             if(temp != null)
             {
                 return temp;
@@ -100,7 +109,7 @@ namespace Covert_sation_Server.Controllers
         {
             User temp = GetUser(id);
             if(temp != null)
-                users.Remove(temp);
+                _context.Users.Remove(temp);
         }
     }
 }
